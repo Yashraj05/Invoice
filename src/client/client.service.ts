@@ -9,10 +9,24 @@ import { User } from 'src/auth/schemas/user';
 export class ClientService {
   constructor(@InjectModel(Client.name) private clientModel: Model<Client>) {}
   async createClient(createClientDto: ClientDto, user: User) {
-    const data = Object.assign(createClientDto, { user: user._id });
+    const sameState: boolean =
+      createClientDto.address.state === user.address.state;
+    const data = Object.assign(
+      createClientDto,
+      { user: user._id },
+      { sameState: sameState },
+    );
 
     const newClient = await this.clientModel.create(data);
 
     return newClient;
+  }
+  async getAllClients(user: User) {
+    const clients = await this.clientModel.find({ user: user._id });
+    return clients;
+  }
+  async getClientById(id: string) {
+    const client = await this.clientModel.findById(id);
+    return client;
   }
 }

@@ -21,6 +21,8 @@ export class Client extends Document {
   };
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
+  @Prop()
+  sameState: boolean;
 }
 
 export const ClientSchema = SchemaFactory.createForClass(Client);
