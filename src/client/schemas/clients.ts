@@ -22,7 +22,7 @@ export class Client extends Document {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
   @Prop()
-  conversionRate: string;
+  conversionRate: number;
   @Prop()
   sameState: boolean;
 }

@@ -26,7 +26,7 @@ export class AuthService {
         clientId: process.env.OAUTH_CLIENTID,
         clientSecret: process.env.OAUTH_CLIENT_SECRET,
         refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-        accessToken: process.env.OAUTH_ACCESS_TOKEN, // Optional: You can also include the access token if you have it
+        accessToken: process.env.OAUTH_ACCESS_TOKEN,
       },
     });
   }
@@ -58,10 +58,9 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Invalid email');
     }
-    //generating an otp
+
     const generatedOTP = generateRandomOTP();
 
-    // Step 2: Send OTP to the user's email
     try {
       await this.sendOTPByEmail(email, generatedOTP);
     } catch (error) {
@@ -69,7 +68,6 @@ export class AuthService {
       throw new Error('Error sending OTP');
     }
 
-    // Step 3: Save OTP in the database
     const otpDocument = new this.otpModel({
       otp: generatedOTP,
       userEmail: email,
@@ -80,7 +78,6 @@ export class AuthService {
     return 'OTP sent successfully';
   }
   async verifyOTP(email: string, otp: string) {
-    // Step 1: Find the OTP document associated with the user's email
     const otpDocument = (await this.otpModel
       .findOne({ userEmail: email })
       .sort({ createdAt: -1 })
@@ -91,7 +88,6 @@ export class AuthService {
       throw new UnauthorizedException('OTP not found');
     }
 
-    // Verify OTP
     if (otpDocument.otp !== otp) {
       throw new UnauthorizedException('Invalid OTP');
     }

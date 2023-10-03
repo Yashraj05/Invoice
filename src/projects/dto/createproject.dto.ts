@@ -1,5 +1,6 @@
 import {
   IsDateString,
+  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsNumberString,
@@ -23,11 +24,13 @@ export class CreateProjectDto {
   @IsNumber()
   conversionRate: number;
 
+  @IsMongoId()
   adminId: string;
 
   @IsNumber()
   workingHours: number;
 
+  @IsMongoId()
   clientId: string;
 
   @IsNumber()

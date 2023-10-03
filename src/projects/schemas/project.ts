@@ -28,3 +28,4 @@ export class Project extends Document {
   paymentStatus: string;
 }
 export const ProjectSchema = SchemaFactory.createForClass(Project);
+ProjectSchema.index({ 'adminId.email': 1 }, { unique: false });

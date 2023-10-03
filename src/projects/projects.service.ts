@@ -17,7 +17,7 @@ export class ProjectsService {
     return project.save();
   }
   async getAllProjects(id: string) {
-    const projects = await this.projectModel.find({ client: id });
+    const projects = await this.projectModel.find({ clientId: id });
     return projects;
   }
   async getProjectById(id: string) {
