@@ -1,4 +1,9 @@
-import { IsDateString, IsNotEmpty, IsNumberString } from 'class-validator';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsNumberString,
+} from 'class-validator';
 
 export class CreateProjectDto {
   @IsNotEmpty()
@@ -10,9 +15,23 @@ export class CreateProjectDto {
   @IsDateString()
   periodTo: Date;
 
+  projectManager: string;
+
   @IsNumberString()
   ratePerHour: string;
 
-  @IsNumberString()
-  conversionRate: string;
+  @IsNumber()
+  conversionRate: number;
+
+  adminId: string;
+
+  @IsNumber()
+  workingHours: number;
+
+  clientId: string;
+
+  @IsNumber()
+  amount: number;
+
+  paymentStatus: boolean;
 }

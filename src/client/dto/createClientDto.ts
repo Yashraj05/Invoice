@@ -2,7 +2,7 @@ import { IsString, IsObject } from 'class-validator';
 
 export class ClientDto {
   @IsString()
-  companyName: string;
+  clientName: string;
 
   @IsString()
   gistin: string;
@@ -21,4 +21,6 @@ export class ClientDto {
     postalCode: string;
     country: string;
   };
+  @IsString()
+  conversionRate: string;
 }

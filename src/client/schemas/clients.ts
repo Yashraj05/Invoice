@@ -4,7 +4,7 @@ import { User } from 'src/auth/schemas/user';
 @Schema({ timestamps: true })
 export class Client extends Document {
   @Prop()
-  companyName: string;
+  clientName: string;
   @Prop()
   gistin: string;
   @Prop()
@@ -21,6 +21,8 @@ export class Client extends Document {
   };
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
+  @Prop()
+  conversionRate: string;
   @Prop()
   sameState: boolean;
 }

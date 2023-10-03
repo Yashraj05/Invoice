@@ -5,4 +5,22 @@ export class UserDto {
   email: string;
   @Exclude()
   password: string;
+  @Expose()
+  companyName: string;
+  @Expose()
+  gistin: string;
+  @Expose()
+  contactNo: string;
+  @Expose()
+  pancardNo: string;
+  @Expose()
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+  };
+  @Expose()
+  invoiceNo: string;
 }

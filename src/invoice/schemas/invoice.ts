@@ -10,12 +10,13 @@ export class Invoice extends Document {
   @Prop({ type: SchemaTypes.Date }) // Specify the data type as SchemaTypes.Date
   billDate: Date;
   @Prop({ type: SchemaTypes.Date }) // Specify the data type as SchemaTypes.Date
-  dueDate: Date; 
+  dueDate: Date;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Client' })
-  client: Client;
+  clientId: Client;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: User;
+  adminId: User;
+
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }] })
-  projects: Project;
+  projects: Project[];
 }
 export const InvoiceSchema = SchemaFactory.createForClass(Invoice);

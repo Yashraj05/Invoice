@@ -8,11 +8,8 @@ export class ProjectsController {
   constructor(private projectService: ProjectsService) {}
   @Post()
   @UseGuards(AuthGuard())
-  createProject(
-    @Param('clientId') clientId: string,
-    @Body() createProjectDto: CreateProjectDto,
-  ) {
-    return this.projectService.createProject(clientId, createProjectDto);
+  createProject(@Body() createProjectDto: CreateProjectDto) {
+    return this.projectService.createProject(createProjectDto);
   }
   @Get('/client/:id')
   @UseGuards(AuthGuard())
@@ -24,17 +21,16 @@ export class ProjectsController {
   getProjectById(@Param('id') id: string) {
     return this.projectService.getProjectById(id);
   }
-  @UseGuards(AuthGuard())
-  @Post(':projectId/calculate-cost')
-  async calculateCost(
-    @Param('projectId') projectId: string,
-    @Body('workingHours') workingHours: string,
-  ) {
-    const { cost, project } = await this.projectService.calculateProjectCost(
-      projectId,
-      workingHours,
-    );
-    return { cost, project };
-  }
-  
+  // @UseGuards(AuthGuard())
+  // @Post(':projectId/calculate-cost')
+  // async calculateCost(
+  //   @Param('projectId') projectId: string,
+  //   @Body('workingHours') workingHours: string,
+  // ) {
+  //   const { cost, project } = await this.projectService.calculateProjectCost(
+  //     projectId,
+  //     workingHours,
+  //   );
+  //   return { cost, project };
+  // }
 }

@@ -7,6 +7,7 @@ import { UserSchema } from './schemas/user';
 import { ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { OTP, OTPSchema } from './schemas/otp';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { JwtModule } from '@nestjs/jwt';
       },
     }),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: OTP.name, schema: OTPSchema }]),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
