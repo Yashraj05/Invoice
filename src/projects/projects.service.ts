@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Project } from './schemas/project';
 import { Model } from 'mongoose';
 import { CreateProjectDto } from './dto/createproject.dto';
+import { UpdateProjectDto } from './dto/updateproject.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -23,6 +24,13 @@ export class ProjectsService {
   async getProjectById(id: string) {
     const project = await this.projectModel.findById(id);
     return project;
+  }
+  async updateProjectById(id: string, updateProjectDto: UpdateProjectDto) {
+    await this.projectModel.findByIdAndUpdate(id, updateProjectDto);
+    return 'successfully updated';
+  }
+  async deleteProjectById(id: string) {
+    await this.projectModel.findByIdAndDelete(id);
   }
   // async calculateProjectCost(projectId: string, workingHours: string) {
   //   const project = await this.projectModel.findById(projectId).exec();

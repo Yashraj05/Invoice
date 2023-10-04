@@ -4,6 +4,7 @@ import { Client } from './schemas/clients';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/auth/schemas/user';
+import { UpdateClientDto } from './dto/updateClientDto';
 
 @Injectable()
 export class ClientService {
@@ -28,5 +29,13 @@ export class ClientService {
   async getClientById(id: string) {
     const client = await this.clientModel.findById(id);
     return client;
+  }
+  async updateClientById(id: string, updateClientDto: UpdateClientDto) {
+    await this.clientModel.findByIdAndUpdate(id, updateClientDto);
+    return 'client successfully updated';
+  }
+  async DeleteClientById(id: string) {
+    await this.clientModel.findByIdAndDelete(id);
+    return 'client successfully deleted';
   }
 }

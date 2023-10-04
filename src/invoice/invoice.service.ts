@@ -31,4 +31,7 @@ export class InvoiceService {
     const invoices = await this.invoiceModel.find();
     return invoices;
   }
+  async getInvoiceById(id: string) {
+    return await this.invoiceModel.findById(id);
+  }
 }
