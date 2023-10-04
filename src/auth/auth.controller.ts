@@ -43,7 +43,6 @@ export class AuthController {
   async setPassword(@Body() forgetPassword: LoginDto) {
     return this.authService.addNewPass(forgetPassword);
   }
-
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   async getUserById(@Param('id') id: string) {
