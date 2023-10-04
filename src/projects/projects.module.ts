@@ -8,7 +8,8 @@ import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
-    ClientModule, AuthModule,
+    ClientModule,
+    AuthModule,
     MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }]),
   ],
   controllers: [ProjectsController],

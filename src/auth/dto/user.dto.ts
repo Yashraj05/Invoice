@@ -23,4 +23,6 @@ export class UserDto {
   };
   @Expose()
   invoiceNo: string;
+  @Expose()
+  companyLogo: string;
 }

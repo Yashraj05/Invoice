@@ -11,15 +11,18 @@ export class InvoiceService {
     @InjectModel(Invoice.name) private invoiceModel: Model<Invoice>,
   ) {}
   async createInvoice(createInvoiceDto: CreateInvoiceDto, user: User) {
+    console.log(createInvoiceDto);
+    console.log(user);
     const data = Object.assign(
       createInvoiceDto,
       { invoiceNo: user.invoiceNo },
-      { user: user._id },
+      { adminId: user._id },
     );
 
     const invoice = await this.invoiceModel.create(data);
+    console.log(user.invoiceNo);
 
-    user.invoiceNo = user.invoiceNo + 1;
+    user.invoiceNo = (parseInt(user.invoiceNo) + 1).toString();
 
     return invoice;
   }

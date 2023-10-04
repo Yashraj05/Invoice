@@ -9,7 +9,7 @@ export class CreateInvoiceDto {
   dueDate: Date;
 
   @IsMongoId()
-  client: string; // Assuming that the client's ID will be sent as a string
+  clientId: string; // Assuming that the client's ID will be sent as a string
 
   @IsMongoId({ each: true })
   @ValidateNested({ each: true })

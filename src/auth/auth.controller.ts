@@ -29,6 +29,7 @@ export class AuthController {
     userDto.pancardNo = user.pancardNo;
     userDto.invoiceNo = user.invoiceNo;
     userDto.contactNo = user.contactNo;
+    userDto.companyLogo = user.companyLogo;
     return { token, userDto };
   }
   @Post('/generate')
@@ -56,6 +57,7 @@ export class AuthController {
     userDto.pancardNo = user.pancardNo;
     userDto.invoiceNo = user.invoiceNo;
     userDto.contactNo = user.contactNo;
+    userDto.companyLogo = user.companyLogo;
     return userDto;
   }
 }
