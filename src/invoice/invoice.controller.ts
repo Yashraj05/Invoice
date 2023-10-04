@@ -1,4 +1,4 @@
-import { Controller, Post, Req, UseGuards, Get } from '@nestjs/common';
+import { Controller, Post, Req, UseGuards, Get, Body } from '@nestjs/common';
 import { InvoiceService } from './invoice.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateInvoiceDto } from './dto/createInvoice.dto';
@@ -8,7 +8,7 @@ export class InvoiceController {
   constructor(private invoiceService: InvoiceService) {}
   @Post()
   @UseGuards(AuthGuard())
-  createInvoice(createInvoiceDto: CreateInvoiceDto, @Req() req) {
+  createInvoice(@Body() createInvoiceDto: CreateInvoiceDto, @Req() req) {
     return this.invoiceService.createInvoice(createInvoiceDto, req.user);
   }
   @Get()

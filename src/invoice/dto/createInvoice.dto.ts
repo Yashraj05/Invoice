@@ -1,5 +1,4 @@
-import { IsDateString, IsMongoId, ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsDateString, IsMongoId } from 'class-validator';
 
 export class CreateInvoiceDto {
   @IsDateString()
@@ -12,7 +11,7 @@ export class CreateInvoiceDto {
   clientId: string; // Assuming that the client's ID will be sent as a string
 
   @IsMongoId({ each: true })
-  @ValidateNested({ each: true })
-  @Type(() => String)
+  // @ValidateNested({ each: true })
+  // @Type(() => String)
   projects: string[]; // Assuming that an array of project IDs will be sent as strings
 }
