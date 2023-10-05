@@ -4,37 +4,51 @@ import {
   IsNotEmpty,
   IsNumber,
   IsNumberString,
+  IsOptional,
 } from 'class-validator';
 
 export class CreateProjectDto {
   @IsNotEmpty()
   projectName: string;
 
+  @IsNotEmpty()
   @IsDateString()
   periodFrom: Date;
 
+  @IsNotEmpty()
   @IsDateString()
   periodTo: Date;
 
-  projectManager: string;
+  @IsOptional()
+  projectManager?: string;
 
-  @IsNumberString()
-  ratePerHour: string;
+  @IsOptional()
+  @IsNumber()
+  ratePerHour?: number;
 
   @IsNumber()
+  @IsNotEmpty()
   conversionRate: number;
 
   @IsMongoId()
+  @IsNotEmpty()
   adminId: string;
 
-  @IsNumber()
-  workingHours: number;
+  @IsOptional()
+  @IsNumberString()
+  workingHours?: string;
 
   @IsMongoId()
+  @IsNotEmpty()
   clientId: string;
 
+  @IsOptional()
   @IsNumber()
-  amount: number;
+  amount?: number;
 
+  @IsNotEmpty()
   paymentStatus: boolean;
+
+  @IsNotEmpty()
+  isDollar: boolean;
 }

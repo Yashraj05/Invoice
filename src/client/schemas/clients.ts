@@ -3,7 +3,7 @@ import mongoose, { Document } from 'mongoose';
 import { User } from 'src/auth/schemas/user';
 @Schema({ timestamps: true })
 export class Client extends Document {
-  @Prop()
+  @Prop({ unique: [true, 'duplicate client name entered'] })
   clientName: string;
   @Prop()
   gistin: string;

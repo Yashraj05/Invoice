@@ -22,8 +22,8 @@ export class UpdateProjectDto {
   projectManager?: string;
 
   @IsOptional()
-  @IsNumberString()
-  ratePerHour?: string;
+  @IsNumber()
+  ratePerHour?: number;
 
   @IsOptional()
   @IsNumber()
@@ -34,8 +34,8 @@ export class UpdateProjectDto {
   adminId?: string;
 
   @IsOptional()
-  @IsNumber()
-  workingHours?: number;
+  @IsNumberString()
+  workingHours?: string;
 
   @IsOptional()
   @IsMongoId()

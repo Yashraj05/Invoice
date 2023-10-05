@@ -31,6 +31,7 @@ export class ProjectsService {
   }
   async deleteProjectById(id: string) {
     await this.projectModel.findByIdAndDelete(id);
+    return 'successfully deleted';
   }
   // async calculateProjectCost(projectId: string, workingHours: string) {
   //   const project = await this.projectModel.findById(projectId).exec();
