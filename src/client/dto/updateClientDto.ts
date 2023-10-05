@@ -1,4 +1,10 @@
-import { IsString, IsObject, IsNumber, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsObject,
+  IsNumber,
+  IsOptional,
+  IsEmail,
+} from 'class-validator';
 
 export class UpdateClientDto {
   @IsOptional()
@@ -30,4 +36,7 @@ export class UpdateClientDto {
   @IsOptional()
   @IsNumber()
   conversionRate?: number;
+  @IsEmail()
+  @IsOptional()
+  email: string;
 }

@@ -25,6 +25,8 @@ export class Client extends Document {
   conversionRate: number;
   @Prop()
   sameState: boolean;
+  @Prop()
+  email: string;
 }
 
 export const ClientSchema = SchemaFactory.createForClass(Client);

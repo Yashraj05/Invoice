@@ -1,4 +1,4 @@
-import { IsString, IsObject, IsNumber } from 'class-validator';
+import { IsString, IsObject, IsNumber, IsEmail } from 'class-validator';
 
 export class ClientDto {
   @IsString()
@@ -23,4 +23,6 @@ export class ClientDto {
   };
   @IsNumber()
   conversionRate: number;
+  @IsEmail()
+  email: string;
 }
