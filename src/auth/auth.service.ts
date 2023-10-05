@@ -93,7 +93,7 @@ export class AuthService {
     }
 
     const otpExpirationTime =
-      new Date(otpDocument.createdAt).getTime() + 15 * 60 * 1000; // 15 minutes in milliseconds
+      new Date(otpDocument.createdAt).getTime() + 1 * 60 * 1000; // 15 minutes in milliseconds
 
     if (Date.now() > otpExpirationTime) {
       throw new UnauthorizedException('OTP has expired');
