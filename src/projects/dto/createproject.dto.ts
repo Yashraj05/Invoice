@@ -3,7 +3,6 @@ import {
   IsMongoId,
   IsNotEmpty,
   IsNumber,
-  IsNumberString,
   IsOptional,
 } from 'class-validator';
 
@@ -24,7 +23,7 @@ export class CreateProjectDto {
 
   @IsOptional()
   @IsNumber()
-  ratePerHour?: number;
+  rate?: number;
 
   @IsNumber()
   @IsNotEmpty()
@@ -35,8 +34,11 @@ export class CreateProjectDto {
   adminId: string;
 
   @IsOptional()
-  @IsNumberString()
-  workingHours?: string;
+  @IsNumber()
+  workingPeriod?: number;
+
+  @IsOptional()
+  workingPeriodType?: 'hours' | 'months';
 
   @IsMongoId()
   @IsNotEmpty()
@@ -49,6 +51,6 @@ export class CreateProjectDto {
   @IsNotEmpty()
   paymentStatus: boolean;
 
-  @IsNotEmpty()
-  isDollar: boolean;
+  @IsOptional()
+  currencyType: 'rupees' | 'dollars';
 }

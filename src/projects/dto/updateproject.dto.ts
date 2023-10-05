@@ -1,50 +1,50 @@
-import {
-  IsDateString,
-  IsMongoId,
-  IsNumber,
-  IsNumberString,
-  IsOptional,
-} from 'class-validator';
+import { IsDateString, IsMongoId, IsNumber, IsOptional } from 'class-validator';
 
 export class UpdateProjectDto {
   @IsOptional()
-  projectName?: string;
+  projectName: string;
 
   @IsOptional()
   @IsDateString()
-  periodFrom?: Date;
+  periodFrom: Date;
 
   @IsOptional()
   @IsDateString()
-  periodTo?: Date;
+  periodTo: Date;
 
   @IsOptional()
   projectManager?: string;
 
   @IsOptional()
   @IsNumber()
-  ratePerHour?: number;
+  rate?: number;
+
+  @IsNumber()
+  @IsOptional()
+  conversionRate: number;
+
+  @IsMongoId()
+  @IsOptional()
+  adminId: string;
 
   @IsOptional()
   @IsNumber()
-  conversionRate?: number;
+  workingPeriod?: number;
 
   @IsOptional()
+  workingPeriodType?: 'hours' | 'months';
+
   @IsMongoId()
-  adminId?: string;
-
   @IsOptional()
-  @IsNumberString()
-  workingHours?: string;
-
-  @IsOptional()
-  @IsMongoId()
-  clientId?: string;
+  clientId: string;
 
   @IsOptional()
   @IsNumber()
   amount?: number;
 
   @IsOptional()
-  paymentStatus?: boolean;
+  paymentStatus: boolean;
+
+  @IsOptional()
+  currencyType: 'rupees' | 'dollars';
 }

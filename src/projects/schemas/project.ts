@@ -11,13 +11,15 @@ export class Project extends Document {
   @Prop({ type: SchemaTypes.Date }) // Specify the data type as SchemaTypes.Date
   periodTo: Date;
   @Prop()
-  ratePerHour: number;
+  rate: number;
   @Prop()
   projectManager: string;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   adminId: User;
   @Prop()
-  workingHours: number;
+  workingPeriodType: 'hours' | 'months';
+  @Prop()
+  workingPeriod: number;
   @Prop()
   conversionRate: number;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Client' })
@@ -26,6 +28,7 @@ export class Project extends Document {
   amount: number;
   @Prop()
   paymentStatus: string;
+  @Prop()
+  currencyType: 'rupees' | 'dollars';
 }
 export const ProjectSchema = SchemaFactory.createForClass(Project);
-ProjectSchema.index({ 'adminId.email': 1 }, { unique: false });
