@@ -11,6 +11,20 @@ export class ProjectsService {
     @InjectModel(Project.name) private readonly projectModel: Model<Project>,
   ) {}
   async createProject(createProjectDto: CreateProjectDto): Promise<Project> {
+    const { rate, workingPeriod, conversionRate } = createProjectDto;
+    if (rate && workingPeriod && conversionRate) {
+      console.log(rate);
+      console.log(conversionRate);
+      console.log(workingPeriod);
+      const amount = workingPeriod * rate * conversionRate;
+      console.log(amount);
+      const data = {
+        ...createProjectDto,
+        amount,
+      };
+      return await this.projectModel.create(data);
+    }
+
     const project = new this.projectModel({
       ...createProjectDto,
     });
@@ -26,6 +40,25 @@ export class ProjectsService {
     return project;
   }
   async updateProjectById(id: string, updateProjectDto: UpdateProjectDto) {
+    //caculation of cost starts
+    // eslint-disable-next-line prefer-const
+    const { rate, workingPeriod, conversionRate } = updateProjectDto;
+    if (rate && workingPeriod && conversionRate) {
+      console.log(rate);
+      console.log(conversionRate);
+      console.log(workingPeriod);
+      const amount = workingPeriod * rate * conversionRate;
+      console.log(amount);
+      const data = {
+        ...updateProjectDto,
+        amount,
+      };
+      await this.projectModel.findByIdAndUpdate(id, data);
+      return 'successfully updated';
+    }
+
+    //calculation of cost ends
+
     await this.projectModel.findByIdAndUpdate(id, updateProjectDto);
     return 'successfully updated';
   }
@@ -33,18 +66,17 @@ export class ProjectsService {
     await this.projectModel.findByIdAndDelete(id);
     return 'successfully deleted';
   }
-  // async calculateProjectCost(projectId: string, workingHours: string) {
-  //   const project = await this.projectModel.findById(projectId).exec();
-
-  //   if (!project) {
-  //     throw new Error('Project not found');
+  // async calculateProjectCost(
+  //   currencyType: 'rupees' | 'dollars',
+  //   rate: number,
+  //   conversionRate: number,
+  //   workingPeriod: number,
+  // ) {
+  //   if (currencyType === 'rupees') {
+  //     conversionRate = 1;
   //   }
-
-  //   const { ratePerHour, conversionRate } = project;
-  //   const [hours, minutes] = workingHours.split(':');
-  //   const totalHours = parseFloat(hours) + parseFloat(minutes) / 60;
   //   const cost =
-  //     totalHours * parseFloat(ratePerHour) * parseFloat(conversionRate);
+  //     workingPeriod * rate * conversionRate;
   //   await this.projectModel.findByIdAndUpdate(projectId, {
   //     $set: { workingHours: workingHours, amount: cost },
   //   });
