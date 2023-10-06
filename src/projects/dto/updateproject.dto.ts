@@ -1,16 +1,8 @@
-import { IsDateString, IsMongoId, IsNumber, IsOptional } from 'class-validator';
+import { IsMongoId, IsNumber, IsOptional } from 'class-validator';
 
 export class UpdateProjectDto {
   @IsOptional()
-  projectName: string;
-
-  @IsOptional()
-  @IsDateString()
-  periodFrom: Date;
-
-  @IsOptional()
-  @IsDateString()
-  periodTo: Date;
+  projectName?: string;
 
   @IsOptional()
   projectManager?: string;
@@ -21,30 +13,34 @@ export class UpdateProjectDto {
 
   @IsNumber()
   @IsOptional()
-  conversionRate: number;
+  conversionRate?: number;
 
   @IsMongoId()
   @IsOptional()
-  adminId: string;
+  adminId?: string;
 
   @IsOptional()
   @IsNumber()
-  workingPeriod?: number;
+  workingPeriod?: string;
 
   @IsOptional()
-  workingPeriodType?: 'hours' | 'months';
+  workingPeriodType?: 'hours' | 'days';
 
   @IsMongoId()
   @IsOptional()
-  clientId: string;
+  clientId?: string;
 
   @IsOptional()
   @IsNumber()
   amount?: number;
 
   @IsOptional()
-  paymentStatus: boolean;
+  paymentStatus?: boolean;
 
   @IsOptional()
-  currencyType: 'rupees' | 'dollars';
+  currencyType?: 'rupees' | 'dollars' | 'pounds';
+  @IsOptional()
+  description: string;
+  @IsOptional()
+  projectPeriod: number;
 }

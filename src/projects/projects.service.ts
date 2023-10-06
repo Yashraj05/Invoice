@@ -11,13 +11,8 @@ export class ProjectsService {
     @InjectModel(Project.name) private readonly projectModel: Model<Project>,
   ) {}
   async createProject(createProjectDto: CreateProjectDto): Promise<Project> {
-    const { rate, workingPeriod, conversionRate } = createProjectDto;
-    if (rate && workingPeriod && conversionRate) {
-      console.log(rate);
-      console.log(conversionRate);
-      console.log(workingPeriod);
-      const amount = workingPeriod * rate * conversionRate;
-      console.log(amount);
+    if (this.calculateAmount(createProjectDto)) {
+      const amount = this.calculateAmount(createProjectDto);
       const data = {
         ...createProjectDto,
         amount,
@@ -40,25 +35,14 @@ export class ProjectsService {
     return project;
   }
   async updateProjectById(id: string, updateProjectDto: UpdateProjectDto) {
-    //caculation of cost starts
-    // eslint-disable-next-line prefer-const
-    const { rate, workingPeriod, conversionRate } = updateProjectDto;
-    if (rate && workingPeriod && conversionRate) {
-      console.log(rate);
-      console.log(conversionRate);
-      console.log(workingPeriod);
-      const amount = workingPeriod * rate * conversionRate;
-      console.log(amount);
+    if (this.calculateAmount(updateProjectDto)) {
+      const amount = this.calculateAmount(updateProjectDto);
       const data = {
         ...updateProjectDto,
         amount,
       };
       await this.projectModel.findByIdAndUpdate(id, data);
-      return 'successfully updated';
     }
-
-    //calculation of cost ends
-
     await this.projectModel.findByIdAndUpdate(id, updateProjectDto);
     return 'successfully updated';
   }
@@ -66,20 +50,31 @@ export class ProjectsService {
     await this.projectModel.findByIdAndDelete(id);
     return 'successfully deleted';
   }
-  // async calculateProjectCost(
-  //   currencyType: 'rupees' | 'dollars',
-  //   rate: number,
-  //   conversionRate: number,
-  //   workingPeriod: number,
-  // ) {
-  //   if (currencyType === 'rupees') {
-  //     conversionRate = 1;
-  //   }
-  //   const cost =
-  //     workingPeriod * rate * conversionRate;
-  //   await this.projectModel.findByIdAndUpdate(projectId, {
-  //     $set: { workingHours: workingHours, amount: cost },
-  //   });
-  //   return { cost, project };
-  // }
+  calculateAmount(dto: any): number | null {
+    const {
+      rate,
+      workingPeriod,
+      workingPeriodType,
+      projectPeriod,
+      conversionRate,
+    } = dto;
+
+    if (workingPeriodType === 'hours') {
+      if (rate && workingPeriod && conversionRate) {
+        const [hours, minutes] = workingPeriod.split(':');
+        const totalHours = parseFloat(hours) + parseFloat(minutes) / 60;
+        return rate * totalHours * conversionRate;
+      } else {
+        return null;
+      }
+    } else {
+      if (rate && workingPeriod && conversionRate && projectPeriod) {
+        return (
+          (rate / projectPeriod) * parseFloat(workingPeriod) * conversionRate
+        );
+      } else {
+        return null;
+      }
+    }
+  }
 }

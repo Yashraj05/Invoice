@@ -1,24 +1,17 @@
 import {
-  IsDateString,
   IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsOptional,
+  IsString,
 } from 'class-validator';
 
 export class CreateProjectDto {
   @IsNotEmpty()
   projectName: string;
 
-  @IsNotEmpty()
-  @IsDateString()
-  periodFrom: Date;
-
-  @IsNotEmpty()
-  @IsDateString()
-  periodTo: Date;
-
   @IsOptional()
+  @IsString()
   projectManager?: string;
 
   @IsOptional()
@@ -35,10 +28,10 @@ export class CreateProjectDto {
 
   @IsOptional()
   @IsNumber()
-  workingPeriod?: number;
+  workingPeriod?: string;
 
   @IsOptional()
-  workingPeriodType?: 'hours' | 'months';
+  workingPeriodType?: 'hours' | 'days';
 
   @IsMongoId()
   @IsNotEmpty()
@@ -52,5 +45,9 @@ export class CreateProjectDto {
   paymentStatus: boolean;
 
   @IsOptional()
-  currencyType: 'rupees' | 'dollars';
+  currencyType?: 'rupees' | 'dollars' | 'pounds';
+  @IsOptional()
+  description: string;
+  @IsOptional()
+  projectPeriod: number;
 }
