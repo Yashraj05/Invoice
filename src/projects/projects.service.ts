@@ -11,6 +11,7 @@ export class ProjectsService {
     @InjectModel(Project.name) private readonly projectModel: Model<Project>,
   ) {}
   async createProject(createProjectDto: CreateProjectDto): Promise<Project> {
+    console.log(createProjectDto);
     if (this.calculateAmount(createProjectDto)) {
       const amount = this.calculateAmount(createProjectDto);
       const data = {
@@ -58,7 +59,7 @@ export class ProjectsService {
       projectPeriod,
       conversionRate,
     } = dto;
-
+    console.log(workingPeriod);
     if (workingPeriodType === 'hours') {
       if (rate && workingPeriod && conversionRate) {
         const [hours, minutes] = workingPeriod.split(':');
@@ -67,7 +68,7 @@ export class ProjectsService {
       } else {
         return null;
       }
-    } else {
+    } else if (workingPeriodType === 'days') {
       if (rate && workingPeriod && conversionRate && projectPeriod) {
         return (
           (rate / projectPeriod) * parseFloat(workingPeriod) * conversionRate

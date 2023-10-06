@@ -17,7 +17,7 @@ export class Project extends Document {
   @Prop()
   workingPeriodType: 'hours' | 'days';
   @Prop()
-  workingPeriod: string | number;
+  workingPeriod: string;
   @Prop()
   conversionRate: number;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Client' })

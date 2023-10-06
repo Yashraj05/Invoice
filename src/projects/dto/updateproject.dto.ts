@@ -21,7 +21,7 @@ export class UpdateProjectDto {
 
   @IsOptional()
   @IsNumber()
-  workingPeriod?: string | number;
+  workingPeriod?: string;
 
   @IsOptional()
   workingPeriodType?: 'hours' | 'days';
