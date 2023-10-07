@@ -6,6 +6,8 @@ import { ClientModule } from 'src/client/client.module';
 import { ProjectsModule } from 'src/projects/projects.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { InvoiceSchema } from './schemas/invoice';
+import { Project, ProjectSchema } from 'src/projects/schemas/project';
+import { Client, ClientSchema } from 'src/client/schemas/clients';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { InvoiceSchema } from './schemas/invoice';
     ClientModule,
     ProjectsModule,
     MongooseModule.forFeature([{ name: 'Invoice', schema: InvoiceSchema }]),
+    MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }]),
+    MongooseModule.forFeature([{ name: Client.name, schema: ClientSchema }]),
   ],
   controllers: [InvoiceController],
   providers: [InvoiceService],
