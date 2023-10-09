@@ -41,7 +41,7 @@ export class InvoiceService {
       invoiceNo: user.invoiceNo,
       adminId: user._id,
       amountAfterGst: +amountAfterGst.toFixed(2),
-      amountBeforeGst: +amountAfterGst.toFixed(2),
+      amountBeforeGst: +amountBeforeGst.toFixed(2),
       cgst: +cgst.toFixed(2),
       sgst: +sgst.toFixed(2),
     };
