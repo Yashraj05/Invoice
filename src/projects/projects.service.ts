@@ -64,15 +64,18 @@ export class ProjectsService {
       if (rate && workingPeriod && conversionRate) {
         const [hours, minutes] = workingPeriod.split(':');
         const totalHours = parseFloat(hours) + parseFloat(minutes) / 60;
-        return rate * totalHours * conversionRate;
+        const amount = rate * totalHours * conversionRate;
+
+        // Use toFixed to limit to 2 decimal places
+        return parseFloat(amount.toFixed(2));
       } else {
         return null;
       }
     } else if (workingPeriodType === 'days') {
       if (rate && workingPeriod && conversionRate && projectPeriod) {
-        return (
-          (rate / projectPeriod) * parseFloat(workingPeriod) * conversionRate
-        );
+        const amount =
+          (rate / projectPeriod) * parseFloat(workingPeriod) * conversionRate;
+        return +amount.toFixed(2);
       } else {
         return null;
       }

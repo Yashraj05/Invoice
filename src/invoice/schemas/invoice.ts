@@ -17,9 +17,5 @@ export class Invoice extends Document {
   adminId: User;
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }] })
   projects: Project[];
-  @Prop()
-  amountBeforeTax: number;
-  @Prop()
-  amountAfterTax: number;
 }
 export const InvoiceSchema = SchemaFactory.createForClass(Invoice);
