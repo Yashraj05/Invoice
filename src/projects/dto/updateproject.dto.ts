@@ -1,4 +1,4 @@
-import { IsMongoId, IsNumber, IsOptional } from 'class-validator';
+import { IsMongoId, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateProjectDto {
   @IsOptional()
@@ -20,7 +20,7 @@ export class UpdateProjectDto {
   adminId?: string;
 
   @IsOptional()
-  @IsNumber()
+  @IsString()
   workingPeriod?: string;
 
   @IsOptional()
