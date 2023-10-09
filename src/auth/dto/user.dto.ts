@@ -22,7 +22,7 @@ export class UserDto {
     country: string;
   };
   @Expose()
-  invoiceNo: string;
+  invoiceNo: number;
   @Expose()
   companyLogo: string;
 }

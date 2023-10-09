@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { InvoiceSchema } from './schemas/invoice';
 import { Project, ProjectSchema } from 'src/projects/schemas/project';
 import { Client, ClientSchema } from 'src/client/schemas/clients';
+import { User, UserSchema } from 'src/auth/schemas/user';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { Client, ClientSchema } from 'src/client/schemas/clients';
     MongooseModule.forFeature([{ name: 'Invoice', schema: InvoiceSchema }]),
     MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }]),
     MongooseModule.forFeature([{ name: Client.name, schema: ClientSchema }]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [InvoiceController],
   providers: [InvoiceService],

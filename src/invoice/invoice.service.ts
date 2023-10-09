@@ -13,43 +13,45 @@ export class InvoiceService {
     @InjectModel(Invoice.name) private invoiceModel: Model<Invoice>,
     @InjectModel(Project.name) private projectModel: Model<Project>,
     @InjectModel(Client.name) private clientModel: Model<Client>,
+    @InjectModel(User.name) private userModel: Model<User>,
   ) {}
-  async createInvoice(createInvoiceDto: CreateInvoiceDto, user: User) {
-    const { clientId, projects } = createInvoiceDto;
-    let amountBeforeGst = 0;
-    for (let i = 0; i < projects.length; i++) {
-      const id = projects[i];
-      const project = await this.projectModel.findById(id);
-      amountBeforeGst = amountBeforeGst + project.amount;
-    }
-    const client = await this.clientModel.findById(clientId);
-    let cgst = 0;
-    let sgst = 0;
-    if (client.sameState) {
-      cgst = 0.09 * amountBeforeGst;
-      sgst = 0.09 * amountBeforeGst;
-    } else {
-      cgst = 0.18 * amountBeforeGst;
-    }
+  async createInvoice(createInvoiceDto: CreateInvoiceDto) {
+    // const { clientId, projects } = createInvoiceDto;
+    // let amountBeforeGst = 0;
+    // for (let i = 0; i < projects.length; i++) {
+    //   const id = projects[i];
+    //   const project = await this.projectModel.findById(id);
+    //   amountBeforeGst = amountBeforeGst + project.amount;
+    // }
+    // const client = await this.clientModel.findById(clientId);
+    // let cgst = 0;
+    // let sgst = 0;
+    // if (client.sameState) {
+    //   cgst = 0.09 * amountBeforeGst;
+    //   sgst = 0.09 * amountBeforeGst;
+    // } else {
+    //   cgst = 0.18 * amountBeforeGst;
+    // }
 
-    const amountAfterGst = amountBeforeGst + cgst + sgst;
+    // const amountAfterGst = amountBeforeGst + cgst + sgst;
 
-    console.log({ ...createInvoiceDto });
-    console.log(user);
-    const data = {
-      ...createInvoiceDto,
-      invoiceNo: user.invoiceNo,
-      adminId: user._id,
-      amountAfterGst: +amountAfterGst.toFixed(2),
-      amountBeforeGst: +amountBeforeGst.toFixed(2),
-      cgst: +cgst.toFixed(2),
-      sgst: +sgst.toFixed(2),
-    };
+    // console.log({ ...createInvoiceDto });
+    // console.log(user);
+    // const data = {
+    //   ...createInvoiceDto,
+    //   invoiceNo: user.invoiceNo,
+    //   adminId: user._id,
+    //   amountAfterGst: +amountAfterGst.toFixed(2),
+    //   amountBeforeGst: +amountBeforeGst.toFixed(2),
+    //   cgst: +cgst.toFixed(2),
+    //   sgst: +sgst.toFixed(2),
+    // };
 
-    const invoice = await this.invoiceModel.create(data);
-    console.log(user.invoiceNo);
+    const invoice = await this.invoiceModel.create(createInvoiceDto);
 
-    user.invoiceNo = (parseInt(user.invoiceNo) + 1).toString();
+    const user = await this.userModel.findById(invoice.adminId);
+
+    user.invoiceNo = user.invoiceNo + 1;
     user.save();
 
     return invoice;

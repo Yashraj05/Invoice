@@ -23,7 +23,7 @@ export class User extends Document {
     country: string;
   };
   @Prop()
-  invoiceNo: string;
+  invoiceNo: number;
   @Prop()
   companyLogo: string;
 }
