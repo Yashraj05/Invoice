@@ -27,19 +27,35 @@ export class ClientService {
     }
   }
   async getAllClients(user: User) {
-    const clients = await this.clientModel.find({ user: user._id });
-    return clients;
+    try {
+      const clients = await this.clientModel.find({ user: user._id });
+      return clients;
+    } catch (error) {
+      return error;
+    }
   }
   async getClientById(id: string) {
-    const client = await this.clientModel.findById(id);
-    return client;
+    try {
+      const client = await this.clientModel.findById(id);
+      return client;
+    } catch (error) {
+      return error;
+    }
   }
   async updateClientById(id: string, updateClientDto: UpdateClientDto) {
-    await this.clientModel.findByIdAndUpdate(id, updateClientDto);
-    return 'client successfully updated';
+    try {
+      await this.clientModel.findByIdAndUpdate(id, updateClientDto);
+      return 'client successfully updated';
+    } catch (error) {
+      return error;
+    }
   }
   async DeleteClientById(id: string) {
-    await this.clientModel.findByIdAndDelete(id);
-    return 'client successfully deleted';
+    try {
+      await this.clientModel.findByIdAndDelete(id);
+      return 'client successfully deleted';
+    } catch (error) {
+      return error;
+    }
   }
 }

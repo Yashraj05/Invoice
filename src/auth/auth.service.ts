@@ -115,8 +115,12 @@ export class AuthService {
     return 'password successfully updated';
   }
   async getUserById(id: string) {
-    const user = await this.userModel.findById(id);
-    return user;
+    try {
+      const user = await this.userModel.findById(id);
+      return user;
+    } catch (error) {
+      return error;
+    }
   }
 
   private async sendOTPByEmail(email: string, otp: string): Promise<void> {

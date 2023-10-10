@@ -1,4 +1,4 @@
-import { IsDateString, IsMongoId, IsNumber, IsString } from 'class-validator';
+import { IsDateString, IsMongoId, IsNumber } from 'class-validator';
 
 export class CreateInvoiceDto {
   @IsNumber()

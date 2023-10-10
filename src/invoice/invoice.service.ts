@@ -46,21 +46,32 @@ export class InvoiceService {
     //   cgst: +cgst.toFixed(2),
     //   sgst: +sgst.toFixed(2),
     // };
+    try {
+      const invoice = await this.invoiceModel.create(createInvoiceDto);
 
-    const invoice = await this.invoiceModel.create(createInvoiceDto);
+      const user = await this.userModel.findById(invoice.adminId);
 
-    const user = await this.userModel.findById(invoice.adminId);
+      user.invoiceNo = user.invoiceNo + 1;
+      user.save();
 
-    user.invoiceNo = user.invoiceNo + 1;
-    user.save();
-
-    return invoice;
+      return invoice;
+    } catch (error) {
+      return error;
+    }
   }
   async getAllInvoices() {
-    const invoices = await this.invoiceModel.find();
-    return invoices;
+    try {
+      const invoices = await this.invoiceModel.find();
+      return invoices;
+    } catch (error) {
+      return error;
+    }
   }
   async getInvoiceById(id: string) {
-    return await this.invoiceModel.findById(id);
+    try {
+      return await this.invoiceModel.findById(id);
+    } catch (error) {
+      return error;
+    }
   }
 }

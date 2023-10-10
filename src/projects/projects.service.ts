@@ -11,45 +11,65 @@ export class ProjectsService {
     @InjectModel(Project.name) private readonly projectModel: Model<Project>,
   ) {}
   async createProject(createProjectDto: CreateProjectDto): Promise<Project> {
-    console.log(createProjectDto);
-    if (this.calculateAmount(createProjectDto)) {
-      const amount = this.calculateAmount(createProjectDto);
-      const data = {
+    try {
+      console.log(createProjectDto);
+      if (this.calculateAmount(createProjectDto)) {
+        const amount = this.calculateAmount(createProjectDto);
+        const data = {
+          ...createProjectDto,
+          amount,
+        };
+        return await this.projectModel.create(data);
+      }
+
+      const project = new this.projectModel({
         ...createProjectDto,
-        amount,
-      };
-      return await this.projectModel.create(data);
+      });
+
+      return project.save();
+    } catch (error) {
+      return error;
     }
-
-    const project = new this.projectModel({
-      ...createProjectDto,
-    });
-
-    return project.save();
   }
   async getAllProjects(id: string) {
-    const projects = await this.projectModel.find({ clientId: id });
-    return projects;
+    try {
+      const projects = await this.projectModel.find({ clientId: id });
+      return projects;
+    } catch (error) {
+      return error;
+    }
   }
   async getProjectById(id: string) {
-    const project = await this.projectModel.findById(id);
-    return project;
+    try {
+      const project = await this.projectModel.findById(id);
+      return project;
+    } catch (error) {
+      return error;
+    }
   }
   async updateProjectById(id: string, updateProjectDto: UpdateProjectDto) {
-    if (this.calculateAmount(updateProjectDto)) {
-      const amount = this.calculateAmount(updateProjectDto);
-      const data = {
-        ...updateProjectDto,
-        amount,
-      };
-      await this.projectModel.findByIdAndUpdate(id, data);
+    try {
+      if (this.calculateAmount(updateProjectDto)) {
+        const amount = this.calculateAmount(updateProjectDto);
+        const data = {
+          ...updateProjectDto,
+          amount,
+        };
+        await this.projectModel.findByIdAndUpdate(id, data);
+      }
+      await this.projectModel.findByIdAndUpdate(id, updateProjectDto);
+      return 'successfully updated';
+    } catch (error) {
+      return error;
     }
-    await this.projectModel.findByIdAndUpdate(id, updateProjectDto);
-    return 'successfully updated';
   }
   async deleteProjectById(id: string) {
-    await this.projectModel.findByIdAndDelete(id);
-    return 'successfully deleted';
+    try {
+      await this.projectModel.findByIdAndDelete(id);
+      return 'successfully deleted';
+    } catch (error) {
+      return error;
+    }
   }
   calculateAmount(dto: any): number | null {
     const {
