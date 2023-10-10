@@ -2,7 +2,7 @@ import { IsDateString, IsMongoId, IsNumber, IsString } from 'class-validator';
 
 export class CreateInvoiceDto {
   @IsString()
-  invoiceNo: string;
+  invoiceNo: number;
 
   @IsDateString()
   billDate: Date;

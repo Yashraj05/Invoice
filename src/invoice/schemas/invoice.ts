@@ -6,7 +6,7 @@ import { Project } from 'src/projects/schemas/project';
 @Schema({ timestamps: true })
 export class Invoice extends Document {
   @Prop()
-  invoiceNo: string;
+  invoiceNo: number;
   @Prop({ type: SchemaTypes.Date }) // Specify the data type as SchemaTypes.Date
   billDate: Date;
   @Prop({ type: SchemaTypes.Date }) // Specify the data type as SchemaTypes.Date
