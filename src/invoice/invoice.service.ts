@@ -56,7 +56,7 @@ export class InvoiceService {
 
       return invoice;
     } catch (error) {
-      return error;
+      throw new Error('error in creating invoice');
     }
   }
   async getAllInvoices() {
