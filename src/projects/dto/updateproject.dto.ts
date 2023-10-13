@@ -31,10 +31,6 @@ export class UpdateProjectDto {
   clientId?: string;
 
   @IsOptional()
-  @IsNumber()
-  amount?: number;
-
-  @IsOptional()
   paymentStatus?: boolean;
 
   @IsOptional()

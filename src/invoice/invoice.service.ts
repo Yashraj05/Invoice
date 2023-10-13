@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Invoice } from './schemas/invoice';
 import { Model } from 'mongoose';
@@ -71,7 +71,7 @@ export class InvoiceService {
     try {
       return await this.invoiceModel.findById(id);
     } catch (error) {
-      return error;
+      throw new NotFoundException('Invoice does not  exists');
     }
   }
 }

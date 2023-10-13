@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ClientDto } from './dto/createClientDto';
 import { Client } from './schemas/clients';
 import { Model } from 'mongoose';
@@ -23,7 +28,7 @@ export class ClientService {
 
       return newClient;
     } catch (error) {
-      return 'client with this particular name already exists';
+      throw new NotFoundException('Client with this name already exists');
     }
   }
   async getAllClients(user: User) {
@@ -39,7 +44,7 @@ export class ClientService {
       const client = await this.clientModel.findById(id);
       return client;
     } catch (error) {
-      return error;
+      throw new NotFoundException('Client does not  exists');
     }
   }
   async updateClientById(id: string, updateClientDto: UpdateClientDto) {
@@ -47,7 +52,10 @@ export class ClientService {
       await this.clientModel.findByIdAndUpdate(id, updateClientDto);
       return 'client successfully updated';
     } catch (error) {
-      return error;
+      throw new HttpException(
+        'error in updating client',
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
   async DeleteClientById(id: string) {
@@ -55,7 +63,10 @@ export class ClientService {
       await this.clientModel.findByIdAndDelete(id);
       return 'client successfully deleted';
     } catch (error) {
-      return error;
+      throw new HttpException(
+        'error in deleting client',
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 }

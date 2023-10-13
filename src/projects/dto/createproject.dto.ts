@@ -37,10 +37,6 @@ export class CreateProjectDto {
   @IsNotEmpty()
   clientId: string;
 
-  @IsOptional()
-  @IsNumber()
-  amount?: number;
-
   @IsNotEmpty()
   paymentStatus: boolean;
 

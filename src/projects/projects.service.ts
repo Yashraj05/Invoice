@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Project } from './schemas/project';
 import { Model } from 'mongoose';
@@ -20,15 +25,18 @@ export class ProjectsService {
           amount,
         };
         return await this.projectModel.create(data);
+      } else {
+        const project = new this.projectModel({
+          ...createProjectDto,
+        });
+
+        return project.save();
       }
-
-      const project = new this.projectModel({
-        ...createProjectDto,
-      });
-
-      return project.save();
     } catch (error) {
-      return error;
+      throw new HttpException(
+        'error in creating client',
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
   async getAllProjects(id: string) {
@@ -44,23 +52,30 @@ export class ProjectsService {
       const project = await this.projectModel.findById(id);
       return project;
     } catch (error) {
-      return error;
+      throw new NotFoundException('Project does not  exists');
     }
   }
   async updateProjectById(id: string, updateProjectDto: UpdateProjectDto) {
     try {
       if (this.calculateAmount(updateProjectDto)) {
         const amount = this.calculateAmount(updateProjectDto);
+        console.log(amount);
         const data = {
           ...updateProjectDto,
           amount,
         };
+        console.log({ data });
         await this.projectModel.findByIdAndUpdate(id, data);
+        return 'successfully updated';
+      } else {
+        await this.projectModel.findByIdAndUpdate(id, updateProjectDto);
+        return 'successfully updated';
       }
-      await this.projectModel.findByIdAndUpdate(id, updateProjectDto);
-      return 'successfully updated';
     } catch (error) {
-      return error;
+      throw new HttpException(
+        'error in updating client',
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
   async deleteProjectById(id: string) {
@@ -68,7 +83,10 @@ export class ProjectsService {
       await this.projectModel.findByIdAndDelete(id);
       return 'successfully deleted';
     } catch (error) {
-      return error;
+      throw new HttpException(
+        'error in deleting client',
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
   calculateAmount(dto: any): number | null {
