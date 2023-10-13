@@ -25,4 +25,10 @@ export class UserDto {
   invoiceNo: number;
   @Expose()
   companyLogo: string;
+  @Expose()
+  accountNo: string;
+  @Expose()
+  ifsc: string;
+  @Expose()
+  bank: string;
 }

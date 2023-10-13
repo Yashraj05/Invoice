@@ -26,6 +26,12 @@ export class User extends Document {
   invoiceNo: number;
   @Prop()
   companyLogo: string;
+  @Prop()
+  accountNo: string;
+  @Prop()
+  ifsc: string;
+  @Prop()
+  bank: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

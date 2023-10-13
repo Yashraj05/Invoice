@@ -30,6 +30,9 @@ export class AuthController {
     userDto.invoiceNo = user.invoiceNo;
     userDto.contactNo = user.contactNo;
     userDto.companyLogo = user.companyLogo;
+    userDto.accountNo = user.accountNo;
+    userDto.bank = user.bank;
+    userDto.ifsc = user.ifsc;
     return { token, userDto };
   }
   @Post('/generate')
@@ -58,6 +61,9 @@ export class AuthController {
     userDto.invoiceNo = user.invoiceNo;
     userDto.contactNo = user.contactNo;
     userDto.companyLogo = user.companyLogo;
+    userDto.accountNo = user.accountNo;
+    userDto.bank = user.bank;
+    userDto.ifsc = user.ifsc;
     return userDto;
   }
 }
