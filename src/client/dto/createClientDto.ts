@@ -12,15 +12,19 @@ export class ClientDto {
   clientName: string;
 
   @IsString()
+  @IsNotEmpty()
   gistin: string;
 
   @IsString()
+  @IsNotEmpty()
   contactNo: string;
 
   @IsString()
+  @IsNotEmpty()
   pancardNo: string;
 
   @IsObject()
+  @IsNotEmpty()
   address: {
     street: string;
     city: string;
@@ -29,7 +33,9 @@ export class ClientDto {
     country: string;
   };
   @IsNumber()
+  @IsNotEmpty()
   conversionRate: number;
   @IsEmail()
+  @IsNotEmpty()
   email: string;
 }

@@ -40,5 +40,5 @@ export class UpdateClientDto {
   conversionRate?: number;
   @IsEmail()
   @IsOptional()
-  email: string;
+  email?: string;
 }

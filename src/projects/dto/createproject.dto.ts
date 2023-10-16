@@ -43,7 +43,7 @@ export class CreateProjectDto {
   @IsOptional()
   currencyType?: 'rupees' | 'dollars' | 'pounds';
   @IsOptional()
-  description: string;
+  description?: string;
   @IsOptional()
-  projectPeriod: number;
+  projectPeriod?: number;
 }

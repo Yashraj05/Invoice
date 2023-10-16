@@ -62,7 +62,7 @@ export class ProjectsService {
       const project = await this.projectModel.findById(id);
       return project;
     } catch (error) {
-      throw new NotFoundException('Project does not  exists');
+      throw new NotFoundException('Project does not exists');
     }
   }
   async updateProjectById(id: string, updateProjectDto: UpdateProjectDto) {
