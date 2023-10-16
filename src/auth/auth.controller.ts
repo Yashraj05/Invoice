@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   UseInterceptors,
 } from '@nestjs/common';
@@ -43,7 +44,7 @@ export class AuthController {
   async verifyOtp(@Body() verifyDto: VerifyOtpDto) {
     return this.authService.verifyOTP(verifyDto.email, verifyDto.otp);
   }
-  @Post('/resetPassword')
+  @Patch('/resetPassword')
   async setPassword(@Body() forgetPassword: LoginDto) {
     return this.authService.addNewPass(forgetPassword);
   }
