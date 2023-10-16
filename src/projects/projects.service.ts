@@ -16,27 +16,37 @@ export class ProjectsService {
     @InjectModel(Project.name) private readonly projectModel: Model<Project>,
   ) {}
   async createProject(createProjectDto: CreateProjectDto): Promise<Project> {
-    try {
-      console.log(createProjectDto);
-      if (this.calculateAmount(createProjectDto)) {
-        const amount = this.calculateAmount(createProjectDto);
-        const data = {
-          ...createProjectDto,
-          amount,
-        };
-        return await this.projectModel.create(data);
-      } else {
-        const project = new this.projectModel({
-          ...createProjectDto,
-        });
-
-        return project.save();
-      }
-    } catch (error) {
+    const newProjectName = createProjectDto.projectName.trim();
+    if (newProjectName.length === 0) {
       throw new HttpException(
-        'error in creating client',
+        'Enter a valid Project Name',
         HttpStatus.BAD_REQUEST,
       );
+    } else {
+      console.log(createProjectDto.projectName === newProjectName);
+      createProjectDto.projectName = newProjectName;
+      try {
+        console.log(createProjectDto);
+        if (this.calculateAmount(createProjectDto)) {
+          const amount = this.calculateAmount(createProjectDto);
+          const data = {
+            ...createProjectDto,
+            amount,
+          };
+          return await this.projectModel.create(data);
+        } else {
+          const project = new this.projectModel({
+            ...createProjectDto,
+          });
+
+          return project.save();
+        }
+      } catch (error) {
+        throw new HttpException(
+          'error in creating client',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
     }
   }
   async getAllProjects(id: string) {
@@ -56,6 +66,19 @@ export class ProjectsService {
     }
   }
   async updateProjectById(id: string, updateProjectDto: UpdateProjectDto) {
+    if (updateProjectDto.projectName) {
+      console.log(updateProjectDto.projectName);
+      const newProjectName = updateProjectDto.projectName.trim();
+      if (newProjectName.length === 0) {
+        throw new HttpException(
+          'Enter a valid Project Name',
+          HttpStatus.BAD_REQUEST,
+        );
+      } else {
+        updateProjectDto.projectName = newProjectName;
+      }
+    }
+
     try {
       if (this.calculateAmount(updateProjectDto)) {
         const amount = this.calculateAmount(updateProjectDto);

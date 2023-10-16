@@ -15,20 +15,29 @@ import { UpdateClientDto } from './dto/updateClientDto';
 export class ClientService {
   constructor(@InjectModel(Client.name) private clientModel: Model<Client>) {}
   async createClient(createClientDto: ClientDto, user: User) {
-    try {
-      const sameState: boolean =
-        createClientDto.address.state === user.address.state;
-      const data = Object.assign(
-        createClientDto,
-        { user: user._id },
-        { sameState: sameState },
+    const newClient = createClientDto.clientName.trim();
+    if (newClient.length === 0) {
+      throw new HttpException(
+        'Enter a valid Client Name',
+        HttpStatus.BAD_REQUEST,
       );
+    } else {
+      createClientDto.clientName = newClient;
+      try {
+        const sameState: boolean =
+          createClientDto.address.state === user.address.state;
+        const data = Object.assign(
+          createClientDto,
+          { user: user._id },
+          { sameState: sameState },
+        );
 
-      const newClient = await this.clientModel.create(data);
+        const newClient = await this.clientModel.create(data);
 
-      return newClient;
-    } catch (error) {
-      throw new NotFoundException('Client with this name already exists');
+        return newClient;
+      } catch (error) {
+        throw new NotFoundException('Client with this name already exists');
+      }
     }
   }
   async getAllClients(user: User) {
@@ -48,14 +57,23 @@ export class ClientService {
     }
   }
   async updateClientById(id: string, updateClientDto: UpdateClientDto) {
-    try {
-      await this.clientModel.findByIdAndUpdate(id, updateClientDto);
-      return 'client successfully updated';
-    } catch (error) {
+    const newClient = updateClientDto.clientName.trim();
+    if (newClient.length === 0) {
       throw new HttpException(
-        'error in updating client',
+        'Enter a valid Client Name',
         HttpStatus.BAD_REQUEST,
       );
+    } else {
+      updateClientDto.clientName = newClient;
+      try {
+        await this.clientModel.findByIdAndUpdate(id, updateClientDto);
+        return 'client successfully updated';
+      } catch (error) {
+        throw new HttpException(
+          'error in updating client',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
     }
   }
   async DeleteClientById(id: string) {

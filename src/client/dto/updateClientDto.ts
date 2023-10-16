@@ -4,11 +4,13 @@ import {
   IsNumber,
   IsOptional,
   IsEmail,
+  IsNotEmpty,
 } from 'class-validator';
 
 export class UpdateClientDto {
   @IsOptional()
   @IsString()
+  @IsNotEmpty()
   clientName?: string;
 
   @IsOptional()

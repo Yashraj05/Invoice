@@ -1,7 +1,14 @@
-import { IsString, IsObject, IsNumber, IsEmail } from 'class-validator';
+import {
+  IsString,
+  IsObject,
+  IsNumber,
+  IsEmail,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class ClientDto {
   @IsString()
+  @IsNotEmpty()
   clientName: string;
 
   @IsString()

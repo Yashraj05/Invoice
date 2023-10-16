@@ -1,7 +1,14 @@
-import { IsMongoId, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsMongoId,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class UpdateProjectDto {
   @IsOptional()
+  @IsNotEmpty()
   projectName?: string;
 
   @IsOptional()
