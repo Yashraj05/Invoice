@@ -71,7 +71,7 @@ export class InvoiceService {
     try {
       return await this.invoiceModel.findById(id);
     } catch (error) {
-      throw new NotFoundException('Invoice does not  exists');
+      throw new NotFoundException('Invoice does not exists');
     }
   }
 }

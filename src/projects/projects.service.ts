@@ -43,7 +43,7 @@ export class ProjectsService {
         }
       } catch (error) {
         throw new HttpException(
-          'error in creating client',
+          'error in creating project',
           HttpStatus.BAD_REQUEST,
         );
       }
@@ -96,7 +96,7 @@ export class ProjectsService {
       }
     } catch (error) {
       throw new HttpException(
-        'error in updating client',
+        'error in updating project',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -107,7 +107,7 @@ export class ProjectsService {
       return 'successfully deleted';
     } catch (error) {
       throw new HttpException(
-        'error in deleting client',
+        'error in deleting project',
         HttpStatus.BAD_REQUEST,
       );
     }
