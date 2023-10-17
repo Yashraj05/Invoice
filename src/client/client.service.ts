@@ -42,7 +42,9 @@ export class ClientService {
   }
   async getAllClients(user: User) {
     try {
-      const clients = await this.clientModel.find({ user: user._id });
+      const clients = await this.clientModel
+        .find({ user: user._id })
+        .sort({ clientName: 1 });
       return clients;
     } catch (error) {
       return error;
