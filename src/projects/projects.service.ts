@@ -9,6 +9,7 @@ import { Project } from './schemas/project';
 import { Model } from 'mongoose';
 import { CreateProjectDto } from './dto/createproject.dto';
 import { UpdateProjectDto } from './dto/updateproject.dto';
+import { User } from 'src/auth/schemas/user';
 
 @Injectable()
 export class ProjectsService {
@@ -141,5 +142,9 @@ export class ProjectsService {
         return null;
       }
     }
+  }
+  async getAllProjectsByAdmin(user: User) {
+    const projects = await this.projectModel.find({ adminId: user._id });
+    return projects;
   }
 }

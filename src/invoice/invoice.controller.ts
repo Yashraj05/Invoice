@@ -1,4 +1,12 @@
-import { Controller, Post, UseGuards, Get, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Get,
+  Body,
+  Param,
+  Req,
+} from '@nestjs/common';
 import { InvoiceService } from './invoice.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateInvoiceDto } from './dto/createInvoice.dto';
@@ -12,8 +20,8 @@ export class InvoiceController {
   }
   @Get()
   @UseGuards(AuthGuard())
-  getAllInvoices() {
-    return this.invoiceService.getAllInvoices();
+  getAllInvoices(@Req() req) {
+    return this.invoiceService.getAllInvoices(req.user);
   }
   @Get(':id')
   @UseGuards(AuthGuard())

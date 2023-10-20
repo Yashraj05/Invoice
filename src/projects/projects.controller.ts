@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { CreateProjectDto } from './dto/createproject.dto';
@@ -44,16 +45,9 @@ export class ProjectsController {
   deleteProjectById(@Param('id') id: string) {
     return this.projectService.deleteProjectById(id);
   }
-  // @UseGuards(AuthGuard())
-  // @Post(':projectId/calculate-cost')
-  // async calculateCost(
-  //   @Param('projectId') projectId: string,
-  //   @Body('workingHours') workingHours: string,
-  // ) {
-  //   const { cost, project } = await this.projectService.calculateProjectCost(
-  //     projectId,
-  //     workingHours,
-  //   );
-  //   return { cost, project };
-  // }
+  @Get('/admin')
+  @UseGuards(AuthGuard())
+  getAllProjectsByAdmin(@Req() req) {
+    return this.projectService.getAllProjectsByAdmin(req.user);
+  }
 }

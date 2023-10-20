@@ -59,9 +59,9 @@ export class InvoiceService {
       throw new Error('error in creating invoice');
     }
   }
-  async getAllInvoices() {
+  async getAllInvoices(user: User) {
     try {
-      const invoices = await this.invoiceModel.find();
+      const invoices = await this.invoiceModel.find({ adminId: user._id });
       return invoices;
     } catch (error) {
       return error;
